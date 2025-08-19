@@ -3,7 +3,8 @@ import { createServer } from "node:http";
 
 import logger from "./utils/logger.util";
 import fileRouter from "./routers/file.router";
-import corsMiddleware from "./cors.middleware";
+import corsMiddleware from "./middlewares/cors.middleware";
+import errorMiddleware from "./middlewares/error.middleware";
 
 const app = express();
 app.get("/", (_req, res) => {
@@ -16,6 +17,9 @@ app.get("/", (_req, res) => {
 // Add middlewares
 app.use(corsMiddleware());
 app.use("/files", fileRouter);
+
+// Error handler
+app.use(errorMiddleware);
 
 const server = createServer(app);
 

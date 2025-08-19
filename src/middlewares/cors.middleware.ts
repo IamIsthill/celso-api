@@ -1,5 +1,6 @@
 import cors from "cors";
-import loadEnv from "./utils/load-env.util";
+import loadEnv from "../utils/load-env.util";
+import { AppError } from "../utils/errors";
 
 loadEnv();
 
@@ -16,7 +17,9 @@ const options: cors.CorsOptions = {
     ) {
       callback(null, true);
     } else {
-      callback(new Error("Not Allowed by cors"));
+      callback(
+        new AppError(`Cors blocked for origin: ${origin ?? "unknown"}`, 403)
+      );
     }
   },
 };
