@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "node:http";
 
 import logger from "./utils/logger.util";
+import fileRouter from "./routers/file.router";
 
 const app = express();
 app.get("/", (_req, res) => {
@@ -10,6 +11,8 @@ app.get("/", (_req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+app.use("/files", fileRouter);
 
 const server = createServer(app);
 
