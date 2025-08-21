@@ -23,13 +23,30 @@ interface IFile {
   webViewLink: string;
   iconLink: string;
 }
+interface IListFilesResult {
+  parentMetaData: IFile;
+  files: IFile[];
+}
 
-async function listFiles(folder: string = ROOT_FOLDER!): Promise<IFile[]> {
-  const res = await drive.files.list({
-    q: `'${folder}' in parents and trashed = false`,
-    fields: "files(id, name, mimeType, webViewLink, webContentLink, iconLink)",
-  });
-  return res.data.files as IFile[];
+async function listFiles(
+  folder: string = ROOT_FOLDER!
+): Promise<IListFilesResult> {
+  const [parentMetaData, res] = await Promise.all([
+    drive.files.get({
+      fileId: folder,
+      fields: "id, name, mimeType, webViewLink, webContentLink, iconLink",
+    }),
+    drive.files.list({
+      q: `'${folder}' in parents and trashed = false`,
+      fields:
+        "files(id, name, mimeType, webViewLink, webContentLink, iconLink)",
+    }),
+  ]);
+
+  return {
+    parentMetaData: parentMetaData.data as IFile,
+    files: res.data.files as IFile[],
+  };
 }
 
 export default {

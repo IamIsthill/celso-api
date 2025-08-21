@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import googleService from "../service/google.service";
 import { TypedQuery } from "zodware";
 import { getAllFilesValidator } from "../validators/file.validator";
@@ -9,7 +9,9 @@ export async function getAllFiles(
   next: NextFunction
 ) {
   try {
-    const files = await googleService.listFiles(req.query.folderId);
+    const { parentMetaData, files } = await googleService.listFiles(
+      req.query.folderId
+    );
     const sortFiles = files.map((file) => {
       let type = "file";
       if (file.mimeType.includes("folder")) {
@@ -20,7 +22,10 @@ export async function getAllFiles(
         type,
       };
     });
-    res.status(200).json(sortFiles);
+    res.status(200).json({
+      parentMetaData,
+      files: sortFiles,
+    });
   } catch (error) {
     next(error);
   }
