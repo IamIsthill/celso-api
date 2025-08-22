@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { IFileProvider } from "../../application/services/ListFiles";
-import { File } from "../../domain/entities/File";
+import { File, Folder } from "../../domain/entities/File";
 import loadEnv from "../../shared/utils/load-env.util";
 
 loadEnv();
@@ -18,21 +18,22 @@ const drive = google.drive({ version: "v3", auth });
 export class GoogleDriveProvider implements IFileProvider {
   async listFiles(
     folderId?: string
-  ): Promise<{ parentMetaData: File; files: File[] }> {
+  ): Promise<{ parentMetaData: Folder; files: File[] }> {
     const folder = folderId ? folderId : ROOT_FOLDER!;
     const [parentMetaData, res] = await Promise.all([
       drive.files.get({
         fileId: folder,
-        fields: "id, name, mimeType, webViewLink, webContentLink, iconLink",
+        fields:
+          "id, name, mimeType, webViewLink, webContentLink, iconLink, description, size",
       }),
       drive.files.list({
         q: `'${folder}' in parents and trashed = false`,
         fields:
-          "files(id, name, mimeType, webViewLink, webContentLink, iconLink)",
+          "files(id, name, mimeType, webViewLink, webContentLink, iconLink, description, size)",
       }),
     ]);
     return {
-      parentMetaData: parentMetaData.data as File,
+      parentMetaData: parentMetaData.data as Folder,
       files: res.data.files as File[],
     };
   }

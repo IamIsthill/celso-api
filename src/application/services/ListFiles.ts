@@ -1,9 +1,10 @@
-import { File } from "../../domain/entities/File";
+import { File, Folder } from "../../domain/entities/File";
+import { convertToMb } from "./utils/convertToMb";
 
 export interface IFileProvider {
   listFiles(
     folderId?: string
-  ): Promise<{ parentMetaData: File; files: File[] }>;
+  ): Promise<{ parentMetaData: Folder; files: File[] }>;
 }
 
 export class ListFiles {
@@ -17,6 +18,9 @@ export class ListFiles {
       let type = "file";
       if (file.mimeType.includes("folder")) {
         type = "folder";
+      }
+      if (file.size) {
+        file.size = convertToMb(file.size);
       }
       return {
         ...file,
