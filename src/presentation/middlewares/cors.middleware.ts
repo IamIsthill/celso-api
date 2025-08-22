@@ -1,6 +1,6 @@
 import cors from "cors";
-import loadEnv from "../utils/load-env.util";
-import { AppError } from "../utils/errors";
+import loadEnv from "../../shared/utils/load-env.util";
+import { AppError } from "../../shared/utils/errors";
 
 loadEnv();
 

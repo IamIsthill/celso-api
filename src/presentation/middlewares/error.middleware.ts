@@ -1,6 +1,6 @@
 import { Request, NextFunction, Response } from "express";
-import { AppError } from "../utils/errors";
-import logger from "../utils/logger.util";
+import { AppError } from "../../shared/utils/errors";
+import logger from "../../shared/utils/logger.util";
 
 export default (
   error: unknown,

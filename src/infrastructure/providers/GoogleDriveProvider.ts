@@ -1,7 +1,7 @@
 import { google } from "googleapis";
 import { IFileProvider } from "../../application/services/ListFiles";
 import { File } from "../../domain/entities/File";
-import loadEnv from "../../utils/load-env.util";
+import loadEnv from "../../shared/utils/load-env.util";
 
 loadEnv();
 
