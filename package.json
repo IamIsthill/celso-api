@@ -22,6 +22,7 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "googleapis": "^156.0.0",
+    "mongoose": "^8.18.0",
     "zod": "^4.0.17",
     "zodware": "^1.1.0"
   }

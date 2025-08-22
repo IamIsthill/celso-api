@@ -1,10 +1,8 @@
 import cors from "cors";
-import loadEnv from "../../shared/utils/load-env.util";
+import { ENV } from "../../shared/utils/load-env.util";
 import { AppError } from "../../shared/utils/errors";
 
-loadEnv();
-
-const ALLOWED_DOMAINS = (process.env.ALLOWED_DOMAINS ?? "")
+const ALLOWED_DOMAINS = (ENV.ALLOWED_DOMAINS ?? "")
   .split(",")
   .map((domain) => domain.trim()) // remove accidental spaces
   .filter(Boolean);

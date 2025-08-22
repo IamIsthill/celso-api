@@ -1,13 +1,11 @@
 import { google } from "googleapis";
 import { IFileProvider } from "../../application/services/ListFiles";
 import { File, Folder } from "../../domain/entities/File";
-import loadEnv from "../../shared/utils/load-env.util";
+import { ENV } from "../../shared/utils/load-env.util";
 
-loadEnv();
-
-const ROOT_FOLDER = process.env.ROOT_FOLDER_ID;
+const ROOT_FOLDER = ENV.ROOT_FOLDER_ID;
 const serviceAccount = JSON.parse(
-  Buffer.from(process.env.SERVICE_KEY!, "base64").toString("utf-8")
+  Buffer.from(ENV.SERVICE_KEY!, "base64").toString("utf-8")
 );
 const auth = new google.auth.GoogleAuth({
   credentials: serviceAccount,
