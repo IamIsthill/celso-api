@@ -1,50 +1,19 @@
-import express from "express";
 import { createServer, Server } from "node:http";
-import cookieParser from "cookie-parser";
-import compression from "compression";
+import { createApp } from "./presentation/app";
 
-import logger from "./shared/utils/logger.util";
-import fileRouter from "./presentation/routers/file.router";
-import authRouter from "./presentation/routers/auth.router";
-import corsMiddleware from "./presentation/middlewares/cors.middleware";
-import errorMiddleware from "./presentation/middlewares/error.middleware";
-import { ListFiles } from "./application/services";
-import { GoogleDriveProvider } from "./infrastructure/providers";
-import { MongooseProvider } from "./infrastructure/database";
 import { ENV } from "./shared/utils/load-env.util";
-import { createUserUseCases } from "./infrastructure/composition";
+import logger from "./shared/utils/logger.util";
+
+import { createUseCases } from "./infrastructure/composition";
+import { MongooseProvider } from "./infrastructure/database";
 
 async function bootstrap() {
   try {
     // Connect to MongoDB
     await MongooseProvider.connect(ENV.MONGO_URI);
 
-    const app = express();
-
-    // Middlewares
-    app.use(corsMiddleware());
-    app.use(express.json());
-    app.use(cookieParser());
-    app.use(compression());
-
-    app.get("/", (_req, res) => {
-      res.status(200).json({
-        message: "Server running",
-        timestamp: new Date().toISOString(),
-      });
-    });
-
-    // Use cases
-    const fileProvider = new GoogleDriveProvider();
-    const fileUseCases = new ListFiles(fileProvider);
-    const userUsecases = createUserUseCases();
-
-    // Routes
-    app.use("/files", fileRouter(fileUseCases));
-    app.use("/auth", authRouter(userUsecases));
-
-    // Error handler
-    app.use(errorMiddleware);
+    const useCases = createUseCases();
+    const app = createApp(useCases);
 
     // Create HTTP server
     const server: Server = createServer(app);

@@ -2,15 +2,14 @@ import { Router } from "express";
 import validateRequest from "zodware";
 import { getAllFilesValidator } from "../validators/file.validator";
 import { getAllFiles } from "../controllers/file.controller";
-import { GoogleDriveProvider } from "../../infrastructure/providers";
-import { ListFiles } from "../../application/services/ListFiles";
+import { IFileUseCases } from "../../infrastructure/composition";
 
-export default function fileRouter(listFilesUseCase: ListFiles) {
+export default function fileRouter(filesUseCases: IFileUseCases) {
   const router = Router();
   router.get(
     "/",
     validateRequest({ query: getAllFilesValidator }),
-    getAllFiles(listFilesUseCase)
+    getAllFiles(filesUseCases.listFiles)
   );
 
   return router;
