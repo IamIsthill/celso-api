@@ -38,3 +38,10 @@ export class IncorrectCredentialsError extends AppError {
     super("Credentials passed was incorrect", STATUS.UNAUTHORIZED);
   }
 }
+
+// Announcements
+export class AnnouncementNotFoundError extends AppError {
+  constructor() {
+    super("No announcement was found", STATUS.NOT_FOUND);
+  }
+}
