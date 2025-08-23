@@ -4,6 +4,7 @@ import compression from "compression";
 
 import fileRouter from "./routers/file.router";
 import authRouter from "./routers/auth.router";
+import AnnouncementRouter from "./routers/announcement.router";
 
 import corsMiddleware from "./middlewares/cors.middleware";
 import errorMiddleware from "./middlewares/error.middleware";
@@ -27,9 +28,13 @@ export function createApp(useCases: IUseCase) {
     });
   });
 
+  // Create Router
+  const announcementRouter = new AnnouncementRouter(useCases.announcements);
+
   // Routes
   app.use("/files", fileRouter(useCases.files));
   app.use("/auth", authRouter(useCases.auth));
+  app.use("/announcements", announcementRouter.router);
 
   // Error handler
   app.use(errorMiddleware);
