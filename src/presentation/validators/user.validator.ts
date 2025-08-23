@@ -6,3 +6,10 @@ export const postRegisterUser = z
     password: z.string().min(1, "Password is required"),
   })
   .strict();
+
+export const postLoginUser = z
+  .object({
+    email: z.email(),
+    password: z.string().min(1, "Password is required"),
+  })
+  .strict();

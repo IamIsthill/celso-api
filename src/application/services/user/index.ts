@@ -1,2 +1,3 @@
 export * from "./RegisterUser";
-export * from "./UserCasesFactory";
+export * from "../../../infrastructure/composition/UserCasesFactory";
+export * from "./LoginUser";

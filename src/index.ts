@@ -1,5 +1,7 @@
 import express from "express";
 import { createServer, Server } from "node:http";
+import cookieParser from "cookie-parser";
+import compression from "compression";
 
 import logger from "./shared/utils/logger.util";
 import fileRouter from "./presentation/routers/file.router";
@@ -10,7 +12,7 @@ import { ListFiles } from "./application/services";
 import { GoogleDriveProvider } from "./infrastructure/providers";
 import { MongooseProvider } from "./infrastructure/database";
 import { ENV } from "./shared/utils/load-env.util";
-import { createUserUseCases } from "./application/services/user";
+import { createUserUseCases } from "./infrastructure/composition";
 
 async function bootstrap() {
   try {
@@ -22,6 +24,8 @@ async function bootstrap() {
     // Middlewares
     app.use(corsMiddleware());
     app.use(express.json());
+    app.use(cookieParser());
+    app.use(compression());
 
     app.get("/", (_req, res) => {
       res.status(200).json({

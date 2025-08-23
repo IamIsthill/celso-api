@@ -26,3 +26,15 @@ export class ExistingEmailError extends AppError {
     super("Email already in use", STATUS.CONFLICT);
   }
 }
+
+export class UserNotFoundError extends AppError {
+  constructor() {
+    super("No user was found", STATUS.NOT_FOUND);
+  }
+}
+
+export class IncorrectCredentialsError extends AppError {
+  constructor() {
+    super("Credentials passed was incorrect", STATUS.UNAUTHORIZED);
+  }
+}
