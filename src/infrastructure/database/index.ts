@@ -1,2 +1,2 @@
-export * from "./MongooseProvider";
-export * from "./repositories/UserRepository";
+export * from "./mongoose-provider";
+export * from "./repositories/user-repository";

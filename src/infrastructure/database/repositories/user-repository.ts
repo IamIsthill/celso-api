@@ -1,4 +1,4 @@
-import UserModel from "../schemas/UserSchema";
+import UserModel from "../schemas/user-schema";
 import { IUserRepository } from "../../../application/ports";
 import { User } from "../../../domain/entities";
 
