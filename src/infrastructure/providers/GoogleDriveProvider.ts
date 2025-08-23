@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { IFileProvider } from "../../application/services/ListFiles";
-import { File, Folder } from "../../domain/entities/File";
+import { File, Folder } from "../../domain/entities/file";
 import { ENV } from "../../shared/utils/load-env.util";
 
 const ROOT_FOLDER = ENV.ROOT_FOLDER_ID;

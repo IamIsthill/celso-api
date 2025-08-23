@@ -1,5 +1,8 @@
-import { createFileUseCases, IFileUseCases } from "./FileUseCasesFactory";
-import { createUserUseCases, IUserUseCase } from "./UserCasesFactory";
+import {
+  createFileUseCases,
+  IFileUseCases,
+} from "./file-use-cases.composition";
+import { createUserUseCases, IUserUseCase } from "./user-use-cases.composition";
 
 export interface IUseCase {
   files: IFileUseCases;
