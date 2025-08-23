@@ -2,11 +2,7 @@ import { UserRepository } from "../database";
 import { LoginUser } from "../../application/services/user/LoginUser";
 import { RegisterUser } from "../../application/services/user/RegisterUser";
 import { JwtAuthService } from "../providers";
-
-export interface IUserUseCase {
-  register: RegisterUser;
-  login: LoginUser;
-}
+import { IUserUseCase } from "../../application/usecases";
 
 export function createUserUseCases(): IUserUseCase {
   const repo = new UserRepository();

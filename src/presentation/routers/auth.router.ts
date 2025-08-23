@@ -1,6 +1,6 @@
 import { Router } from "express";
 import validateRequest from "zodware";
-import { IUserUseCase } from "../../infrastructure/composition";
+import { IUserUseCase } from "../../application/usecases";
 import { postLoginUser, postRegisterUser } from "../validators/user.validator";
 import {
   registerUserController,

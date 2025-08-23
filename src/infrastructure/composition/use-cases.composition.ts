@@ -1,12 +1,11 @@
+import { createAnnouncementUseCases } from "./announcement-use-cases.composition";
+import { createFileUseCases } from "./file-use-cases.composition";
+import { createUserUseCases } from "./user-use-cases.composition";
 import {
-  createAnnouncementUseCases,
-  IAnnouncementUseCases,
-} from "./announcement-use-cases.composition";
-import {
-  createFileUseCases,
+  IUserUseCase,
   IFileUseCases,
-} from "./file-use-cases.composition";
-import { createUserUseCases, IUserUseCase } from "./user-use-cases.composition";
+  IAnnouncementUseCases,
+} from "../../application/usecases";
 
 export interface IUseCase {
   files: IFileUseCases;

@@ -1,9 +1,6 @@
 import { ListFiles } from "../../application/services";
 import { GoogleDriveProvider } from "../providers";
-
-export interface IFileUseCases {
-  listFiles: ListFiles;
-}
+import { IFileUseCases } from "../../application/usecases";
 
 export function createFileUseCases(): IFileUseCases {
   const provider = new GoogleDriveProvider();

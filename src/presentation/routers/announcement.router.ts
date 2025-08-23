@@ -1,6 +1,6 @@
 import { Router } from "express";
 import AnnouncementController from "../controllers/announcement.controller";
-import { IAnnouncementUseCases } from "../../infrastructure/composition";
+import { IAnnouncementUseCases } from "../../application/usecases";
 
 export default class AnnouncementRouter {
   public readonly router: Router;

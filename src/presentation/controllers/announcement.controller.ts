@@ -1,4 +1,4 @@
-import { IAnnouncementUseCases } from "../../infrastructure/composition";
+import { IAnnouncementUseCases } from "../../application/usecases";
 import { Request, Response, NextFunction } from "express";
 import { STATUS } from "../../shared/utils/status";
 
