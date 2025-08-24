@@ -1,4 +1,4 @@
-import { File, Folder } from "../../domain/entities/file";
+import { File, Folder } from "../../domain/entities";
 import { convertToMb } from "./utils/convertToMb";
 
 export interface IFileProvider {

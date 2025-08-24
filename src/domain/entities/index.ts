@@ -1,3 +1,3 @@
-export * from "./file";
-export * from "./user";
-export * from "./announcement";
+export * from "./file.entity";
+export * from "./user.entity";
+export * from "./announcement.entity";
