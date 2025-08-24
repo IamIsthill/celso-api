@@ -2,7 +2,10 @@ import { Router } from "express";
 import AnnouncementController from "../controllers/announcement.controller";
 import { IAnnouncementUseCases } from "../../application/usecases";
 import validateRequest from "zodware";
-import { postAnnouncement } from "../validators/announcement.validator";
+import {
+  announcementIdValidator,
+  postAnnouncement,
+} from "../validators/announcement.validator";
 
 export default class AnnouncementRouter {
   public readonly router: Router;
@@ -16,6 +19,11 @@ export default class AnnouncementRouter {
       "/",
       validateRequest({ body: postAnnouncement }),
       controller.create.bind(controller)
+    );
+    this.router.get(
+      "/:announcementId",
+      validateRequest({ params: announcementIdValidator }),
+      controller.getById.bind(controller)
     );
   }
 }
