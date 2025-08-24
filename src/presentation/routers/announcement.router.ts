@@ -25,5 +25,10 @@ export default class AnnouncementRouter {
       validateRequest({ params: announcementIdValidator }),
       controller.getById.bind(controller)
     );
+    this.router.delete(
+      "/:announcementId",
+      validateRequest({ params: announcementIdValidator }),
+      controller.delete.bind(controller)
+    );
   }
 }

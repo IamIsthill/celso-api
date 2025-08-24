@@ -35,9 +35,9 @@ export class AnnouncementRepository implements IAnnouncementRepository {
     }
   }
 
-  async delete(id: string): Promise<Announcement> {
+  async delete(id: string): Promise<Announcement | null> {
     const announcement = await AnnouncementModel.findByIdAndDelete(id).lean();
-    if (!announcement) throw new AnnouncementNotFoundError();
+    if (!announcement) return null;
     return AnnouncementMapper.toDomain(announcement);
   }
 }

@@ -1,4 +1,5 @@
 import { Announcement } from "../../domain/entities";
+import { AnnouncementNotFoundError } from "../../shared/utils/errors";
 import { IAnnouncementRepository } from "../ports";
 
 export class AnnouncementService {
@@ -10,7 +11,9 @@ export class AnnouncementService {
   }
 
   async delete(id: string) {
-    return await this.repo.delete(id);
+    const announcement = await this.repo.delete(id);
+    if (!announcement) throw new AnnouncementNotFoundError();
+    return announcement;
   }
 
   async getAll() {
