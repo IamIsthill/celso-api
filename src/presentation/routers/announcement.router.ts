@@ -1,16 +1,16 @@
 import { Router } from "express";
 import AnnouncementController from "../controllers/announcement.controller";
-import { IAnnouncementUseCases } from "../../application/usecases";
 import validateRequest from "zodware";
 import {
   announcementIdValidator,
   postAnnouncement,
 } from "../validators/announcement.validator";
+import { AnnouncementService } from "../../application/services";
 
 export default class AnnouncementRouter {
   public readonly router: Router;
 
-  constructor(private useCases: IAnnouncementUseCases) {
+  constructor(private useCases: AnnouncementService) {
     this.router = Router();
     const controller = new AnnouncementController(this.useCases);
 
