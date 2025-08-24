@@ -3,17 +3,18 @@ import { AnnouncementDocument } from "../schemas/announcement-schema";
 
 export class AnnouncementMapper {
   static toDomain(doc: AnnouncementDocument): Announcement {
-    return {
+    return Announcement.fromPersistence({
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
       id: doc.id,
       title: doc.title,
       description: doc.description,
-    };
+    });
   }
 
   static toPersistence(entity: Announcement): Partial<AnnouncementDocument> {
     return {
+      id: entity.id ?? undefined,
       title: entity.title,
       description: entity.description,
     };

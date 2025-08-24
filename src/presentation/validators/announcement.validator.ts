@@ -13,3 +13,10 @@ export const announcementIdValidator = z
     announcementId: mongooseId,
   })
   .strict();
+
+export const updateAnnouncementValidator = z
+  .object({
+    title: z.string().trim().min(1).max(100).optional(),
+    description: z.string().min(1).max(500).optional(),
+  })
+  .strict();

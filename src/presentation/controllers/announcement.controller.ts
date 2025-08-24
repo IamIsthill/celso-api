@@ -4,6 +4,7 @@ import { TypedBody, TypedParams } from "zodware";
 import {
   announcementIdValidator,
   postAnnouncement,
+  updateAnnouncementValidator,
 } from "../validators/announcement.validator";
 import { AnnouncementService } from "../../application/services";
 
@@ -54,6 +55,23 @@ export default class AnnouncementController {
     try {
       const announcement = await this.announcementService.delete(
         req.params.announcementId
+      );
+      res.status(STATUS.OK).json(announcement);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async update(
+    req: TypedParams<typeof announcementIdValidator> &
+      TypedBody<typeof updateAnnouncementValidator>,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const announcement = await this.announcementService.update(
+        req.params.announcementId,
+        req.body
       );
       res.status(STATUS.OK).json(announcement);
     } catch (error) {

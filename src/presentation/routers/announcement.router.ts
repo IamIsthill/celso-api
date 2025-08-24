@@ -4,6 +4,7 @@ import validateRequest from "zodware";
 import {
   announcementIdValidator,
   postAnnouncement,
+  updateAnnouncementValidator,
 } from "../validators/announcement.validator";
 import { AnnouncementService } from "../../application/services";
 
@@ -29,6 +30,14 @@ export default class AnnouncementRouter {
       "/:announcementId",
       validateRequest({ params: announcementIdValidator }),
       controller.delete.bind(controller)
+    );
+    this.router.put(
+      "/:announcementId",
+      validateRequest({
+        params: announcementIdValidator,
+        body: updateAnnouncementValidator,
+      }),
+      controller.update.bind(controller)
     );
   }
 }
