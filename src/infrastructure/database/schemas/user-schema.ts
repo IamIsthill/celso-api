@@ -1,5 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-import { User } from "../../../domain/entities";
+import { type User } from "../../../domain/entities";
 
 interface UserDocument extends User, Document {}
 

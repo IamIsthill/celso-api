@@ -1,6 +1,6 @@
 import UserModel from "../schemas/user-schema";
 import { IUserRepository } from "../../../application/ports";
-import { User } from "../../../domain/entities";
+import { type User } from "../../../domain/entities";
 
 export class UserRepository implements IUserRepository {
   async findById(id: string): Promise<User | null> {
