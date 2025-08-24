@@ -1,4 +1,4 @@
-import { type User } from "../../../domain/entities";
+import { User } from "../../../domain/entities";
 import { ExistingEmailError } from "../../../shared/utils/errors";
 import { IUserRepository } from "../../ports";
 import { hash } from "bcrypt";

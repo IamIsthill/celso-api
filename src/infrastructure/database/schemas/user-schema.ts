@@ -1,7 +1,9 @@
 import { Schema, model, Document } from "mongoose";
-import { type User } from "../../../domain/entities";
 
-interface UserDocument extends User, Document {}
+interface UserDocument extends Document {
+  email: string;
+  password: string;
+}
 
 const UserSchema = new Schema<UserDocument>({
   email: { type: String, required: true, unique: true },

@@ -1,4 +1,4 @@
-import { type User } from "../../../domain/entities";
+import { User } from "../../../domain/entities";
 import {
   IncorrectCredentialsError,
   UserNotFoundError,
