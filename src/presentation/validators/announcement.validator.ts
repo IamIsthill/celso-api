@@ -20,3 +20,9 @@ export const updateAnnouncementValidator = z
     description: z.string().min(1).max(500).optional(),
   })
   .strict();
+
+export const getAllAnnouncementValidator = z
+  .object({
+    q: z.string().trim().min(1).max(100).optional(),
+  })
+  .strict();

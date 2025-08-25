@@ -3,6 +3,7 @@ import AnnouncementController from "../controllers/announcement.controller";
 import validateRequest from "zodware";
 import {
   announcementIdValidator,
+  getAllAnnouncementValidator,
   postAnnouncement,
   updateAnnouncementValidator,
 } from "../validators/announcement.validator";
@@ -15,7 +16,11 @@ export default class AnnouncementRouter {
     this.router = Router();
     const controller = new AnnouncementController(this.useCases);
 
-    this.router.get("/", controller.getAll.bind(controller));
+    this.router.get(
+      "/",
+      validateRequest({ query: getAllAnnouncementValidator }),
+      controller.getAll.bind(controller)
+    );
     this.router.post(
       "/",
       validateRequest({ body: postAnnouncement }),

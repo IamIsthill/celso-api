@@ -2,6 +2,7 @@ import { Announcement } from "../../domain/entities";
 import { UpdateAnnouncementProps } from "../../domain/types";
 import { AnnouncementNotFoundError } from "../../shared/utils/errors";
 import { IAnnouncementRepository } from "../ports";
+import { GetAllPayload } from "../ports/announcement-service.port";
 
 export class AnnouncementService {
   constructor(private repo: IAnnouncementRepository) {}
@@ -17,8 +18,8 @@ export class AnnouncementService {
     return announcement;
   }
 
-  async getAll() {
-    return await this.repo.getAll();
+  async getAll(query: GetAllPayload) {
+    return await this.repo.getAll(query);
   }
 
   async getById(id: string) {

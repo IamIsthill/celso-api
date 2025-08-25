@@ -1,8 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import { STATUS } from "../../shared/utils/status";
-import { TypedBody, TypedParams } from "zodware";
+import { TypedBody, TypedParams, TypedQuery } from "zodware";
 import {
   announcementIdValidator,
+  getAllAnnouncementValidator,
   postAnnouncement,
   updateAnnouncementValidator,
 } from "../validators/announcement.validator";
@@ -10,9 +11,13 @@ import { AnnouncementService } from "../../application/services";
 
 export default class AnnouncementController {
   constructor(private announcementService: AnnouncementService) {}
-  async getAll(req: Request, res: Response, next: NextFunction) {
+  async getAll(
+    req: TypedQuery<typeof getAllAnnouncementValidator>,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
-      const announcements = await this.announcementService.getAll();
+      const announcements = await this.announcementService.getAll(req.query);
       res.status(STATUS.OK).json(announcements);
     } catch (error) {
       next(error);

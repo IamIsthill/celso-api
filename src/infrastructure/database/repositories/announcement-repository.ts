@@ -1,8 +1,12 @@
 import { IAnnouncementRepository } from "../../../application/ports";
 import { Announcement } from "../../../domain/entities";
-import AnnouncementModel from "../schemas/announcement-schema";
+import AnnouncementModel, {
+  AnnouncementDocument,
+} from "../schemas/announcement-schema";
 import { AnnouncementMapper } from "../mappers/announcement.mapper";
 import { AnnouncementNotFoundError } from "../../../shared/utils/errors";
+import { RootFilterQuery } from "mongoose";
+import { GetAllPayload } from "../../../application/ports/announcement-service.port";
 
 export class AnnouncementRepository implements IAnnouncementRepository {
   async findById(id: string): Promise<Announcement | null> {
@@ -11,8 +15,12 @@ export class AnnouncementRepository implements IAnnouncementRepository {
     return null;
   }
 
-  async getAll(): Promise<Announcement[]> {
-    const announcements = await AnnouncementModel.find();
+  async getAll(query: GetAllPayload): Promise<Announcement[]> {
+    let filter: RootFilterQuery<AnnouncementDocument> = {};
+    if (query.q) {
+      filter.title = { $regex: query.q, $options: "i" };
+    }
+    const announcements = await AnnouncementModel.find(filter);
     return announcements.map((announcement) =>
       AnnouncementMapper.toDomain(announcement)
     );
