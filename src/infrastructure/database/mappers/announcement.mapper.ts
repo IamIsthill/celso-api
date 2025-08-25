@@ -6,7 +6,7 @@ export class AnnouncementMapper {
     return Announcement.fromPersistence({
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
-      id: doc.id,
+      id: doc.id ? doc.id : doc._id,
       title: doc.title,
       description: doc.description,
     });
